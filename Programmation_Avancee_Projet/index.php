@@ -1,14 +1,14 @@
-<?php require ('dbConnect.php'); ?>
+<?php require ('admin/lib/php/dbConnect.php'); ?>
 <html>
     <head>
-        <link rel="stylesheet" href="./lib/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="./admin/lib/css/style.css" type="text/css"/>
         <meta charset='utf-8'>
     </head>
     <body>
         <div id="conteneur">
             <div id="main">
                 <header id="header"> 
-                    <img class="banniere" src="images/banniere.jpg" alt="banniere"/>
+                    <img class="banniere" src="admin/images/banniere.jpg" alt="banniere"/>
                 </header>
 
                 <nav id="menu">
@@ -45,6 +45,6 @@
                 </section>
             </div>	
         </div>
-                    <?php require ('pages/footer.php'); ?>
+            <?php require ('pages/footer.php'); ?>
     </body>
 </html>

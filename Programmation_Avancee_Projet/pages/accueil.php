@@ -1,4 +1,4 @@
-<img src="./images/accueil.jpg" alt="accueil" id="image"/>
+<img src="./admin/images/accueil.jpg" alt="accueil" id="image"/>
 <h2>Bienvenue !</h2>
 <p>		
 	Le complexe cinématographique Demanix Mons vous accueille pour passer un agréable moment de détente.</br></br>
