@@ -84,7 +84,7 @@ html,body
 body
 {
     margin : 0px 0px;
-    background-image: url("../../admin/images/fond.jpg");
+    background-image: url("../../images/fond.jpg");
 }
 
 #conteneur
@@ -98,7 +98,7 @@ body
     box-shadow : 10px 10px 5px rgb(1,0,16);
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    background-image: url("../../admin/images/fondgris.jpg");
+    background-image: url("../../images/fondgris.jpg");
 }
 
 #header

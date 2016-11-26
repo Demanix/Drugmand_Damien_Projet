@@ -1,7 +1,16 @@
-<?php require ('admin/lib/php/dbConnect.php'); ?>
+<?php
+include ('./admin/lib/php/adm_liste_include.php');
+$cnx = Connexion::getInstance($dsn, $user, $pass);
+
+session_start();
+?>
+
 <html>
     <head>
-        <link rel="stylesheet" href="./admin/lib/css/style.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="./admin/lib/css/bootstrap-3.3.7/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="./admin/lib/css/style.css" type="text/css"/> 
+        <script src="admin/lib/js/jquery-3.1.1.js"></script>
+        <script src="admin/lib/css/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
         <meta charset='utf-8'>
     </head>
     <body>
@@ -12,7 +21,11 @@
                 </header>
 
                 <nav id="menu">
-                    <?php require ('pages/menu.php') ?>
+                    <?php
+                        if (file_exists('./lib/php/menu.php')) {
+                            include ('./lib/php/menu.php');
+                        }
+                        ?> 
                 </nav>
 
                 <div id="navigation">
@@ -29,22 +42,39 @@
 
                 <section id="contenu">
                     <?php
-                    if (!isset($_SESSION['page'])){
-                        $_SESSION['page'] = "accueil.php";
-                    }
-                    if (isset($_GET['page'])){
-                        $_SESSION['page'] = $_GET['page'];
-                    }
-                    $p = "./pages/" . $_SESSION['page'];
-                    if (file_exists($p)) {
-                        include $p;
-                    } else {
-                        echo "page en construction";
-                    }
-                    ?>
+                        if (!isset($_SESSION['page'])) {
+                            $_SESSION['page'] = "accueil";
+                        }
+                        if (isset($_GET['page'])) {
+                            $_SESSION['page'] = $_GET['page'];
+                        }
+                        $path = './pages/' . $_SESSION['page'];
+                        if (file_exists($path)) {
+                            include ($path);
+                        }
+                        else {
+                            ?>
+                            <span class="txtGras txtRouge">Oups!La page demandée n'existe pas</span>
+                            <meta http-refresh: Content="1;url=index.php?page=accueil"/>
+                            <?php
+                        }
+                        ?> 
                 </section>
             </div>	
         </div>
-            <?php require ('pages/footer.php'); ?>
+        <footer id="footer">
+            <img src="./admin/images/logo.gif" alt="logo"/>
+            <span class="gras petit">Contact daminator@webcine.org &copy; CINEWEB SA/NV 2015</span>
+            </br></br>
+            <?php
+                if(isset($_SESSION['admin'])){ ?>
+                   <a href="./index.php?page=disconnect" class="pull-center">Zone administrateur : Déconnexion</a>
+            <?php
+                } else { ?>
+                   <a href="./admin/index.php" class="pull-center">Zone administrateur : Connexion</a>
+            <?php
+                }
+            ?>
+        </footer>	
     </body>
 </html>

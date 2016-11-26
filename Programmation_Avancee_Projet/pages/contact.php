@@ -31,5 +31,5 @@ En train : descendre à la gare de Mons, navette gratuite pour rejoindre le comp
 <p>Demanix Mons</br>
 Boulevard André Delvaux, 1</br>
 7000 MONS (HAINAUT - BELGIQUE)</p>
-<img class="map" src="./images/map.png" alt="contact" />
+<img class="map" src="././admin/images/map.png" alt="contact" />
 
