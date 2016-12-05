@@ -1,6 +1,6 @@
 <?php
 
-class UserDB extends User{
+class UserDB{
     private $_db;
     
     public function __construct($db){

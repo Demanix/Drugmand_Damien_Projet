@@ -44,7 +44,7 @@ session_start();
                             <form action="<?php print $_SERVER['PHP_SELF']; ?>" method='post' id="form_auth_">    
                                 Login : <input type="text" id="login_" name="login" />&nbsp;&nbsp;&nbsp;
                                 Mot de passe : <input type="password" id="password_" name="password" /> &nbsp;&nbsp;&nbsp;
-                                <input type="submit" name="submit_login" id="submit_login_" value="Connexion" />&nbsp;&nbsp;&nbsp;
+                                <input type="submit" name="submit_login" id="submit_login" value="Connexion" />&nbsp;&nbsp;&nbsp;
                                 <a href="./index.php?page=new_account.php">Créer un compte</a>
                             </form>
                     <?php

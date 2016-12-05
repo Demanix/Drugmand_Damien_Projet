@@ -3,11 +3,11 @@ if(isset($_POST['envoyer'])) {
     $log = new UserDB($cnx);
     $retour = $log->insert($_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['login'],$_POST['password']);
     if($retour==1) {
-        $message="ok";
+        $message="Le compte à bien été créé !";
         print $message;
     }
     else {
-        $message = "Données incorrectes";
+        $message = "Données incorrectes !";
         print $message;
     }
 }
@@ -16,7 +16,7 @@ if(isset($_POST['envoyer'])) {
 
 <h2>Veuillez remplir les champs suivant afin de créer votre compte</h2>
 
-<form action="index.php" method="get">
+<form action="index.php" method='post'>
     <table id="inscrire">
         <tr>
                 <td><label class="gras" for="nom">Nom</label></td>
@@ -53,7 +53,7 @@ if(isset($_POST['envoyer'])) {
         <tr>
                 <td><input class="button" type="reset" value="Annuler"></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Confirmer" name="envoyer"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Confirmer" name="envoyer" id="envoyer"></td>
         </tr>
     </table>
 </form>
