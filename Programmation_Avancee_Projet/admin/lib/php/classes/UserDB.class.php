@@ -1,7 +1,8 @@
 <?php
 
-class UserDB{
+class UserDB extends User{
     private $_db;
+    //private $_typeArray = array();
     
     public function __construct($db){
         $this->_db = $db;
@@ -23,17 +24,7 @@ class UserDB{
     }
     
     function insert($nom,$prenom,$email,$login,$password) {
-        try {
-            /*$query="select insert_client(:nom_client,:prenom_client,:email_client,:login,:password) as retour";
-            $sql = $this->_db->prepare($query);
-            $sql->bindValue(':nom_client',$nom);
-            $sql->bindValue(':prenom_client',$prenom);
-            $sql->bindValue(':email_client',$email);
-            $sql->bindValue(':login',$login);
-            $sql->bindValue(':password',md5($password));
-            $sql->execute();
-            $retour = $sql->fetchcolumn(0);*/
-            
+        try {            
             $query="select insert_client(:nom_client,:prenom_client,:email_client,:login,:password)";
             $resultset = $this->_db->prepare($query);
             $resultset->bindValue(1,$nom,PDO::PARAM_STR);
@@ -47,5 +38,29 @@ class UserDB{
             print $ex->getMessage();
         }
         return $retour;
+    }
+    
+    public function getClient($id) {
+        $_typeArray = array();
+        try {
+            $query = "SELECT * FROM client where id_client=:id";
+            $resultset = $this->_db->prepare($query);
+            $resultset->bindValue(1,$id,PDO::PARAM_INT);
+            $resultset->execute();
+            $data = $resultset->fetchAll();
+
+            $resultset->execute();
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+
+        while ($data = $resultset->fetch()) {
+            try {
+                $_typeArray = new User($data);
+            } catch (PDOException $e) {
+                print $e->getMessage();
+            }
+        }
+        return $_typeArray;
     }
 }

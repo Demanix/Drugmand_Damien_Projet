@@ -2,5 +2,5 @@
 
 <div class="" id="accueil_admin">
 
-    accueil admin
+    ajout film
 </div>

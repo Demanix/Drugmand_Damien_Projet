@@ -1,4 +1,5 @@
 <?php
+//Index Administrateur
 session_start();
 ?>
 
@@ -26,8 +27,8 @@ session_start();
                                 echo "Page introuvable";
                             }
                         } else {
-                            if (file_exists('./lib/php/adm_menu.php')) {
-                                include './lib/php/adm_menu.php';
+                            if (file_exists('./lib/php/admin_menu.php')) {
+                                include './lib/php/admin_menu.php';
                             } else {
                                 echo "Page introuvable";
                             }
@@ -79,7 +80,7 @@ session_start();
                    <a href="./index.php?page=disconnect" class="pull-center">Zone administrateur : Déconnexion</a>
             <?php
                 } else { ?>
-                   <a href="../index.php" class="pull-center">Zone public</a>
+                   <a href="javascript:history.back(1)" class="pull-center">Zone public</a>
             <?php
                 }
             ?>

@@ -1,19 +1,3 @@
-<div class="row">
-    <div class="col-sm-12">
-        <span class="txtGras">Administration</span><br/><br/>
-    </div>
-</div>
-<div class="row">     
-    <div class="col-sm-11"><span class="glyphicon glyphicon-chevron-right"></span>
-        &nbsp;
-    <a href="./index.php?page=catalogue" class="txtGras">Produits</a>
-    </div>
-    <div class="col-sm-11"><span class="glyphicon glyphicon-chevron-right"></span>
-        &nbsp;
-       <a href="./index.php?page=commande" class="txtGras">Gestion commande</a>
-    </div>
-    <div class="col-sm-11"><span class="glyphicon glyphicon-chevron-right"></span>
-        &nbsp;
-       <a href="./index.php?page=recherche" class="txtGras">Recherche</a>
-    </div>
-</div>
+<ul>
+<li><a href="index.php?page=accueil_admin&amp;nav=Accueil Admin">Accueil</a></li><li><a href="index.php?page=ajout_film&amp;nav=Nouveau Film">Ajouter un film</a></li><li><a href="index.php?page=gestion_film&amp;nav=Gestion Film">Modifier un film</a></li>
+</ul>

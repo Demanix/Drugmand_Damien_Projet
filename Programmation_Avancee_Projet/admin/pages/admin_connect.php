@@ -1,10 +1,8 @@
 <?php
 if(isset($_POST['submit_login'])) {
-    $log = new AdminDB($cnx);
-    $retour = $log->isAuthorized($_POST['login'], $_POST['password']);
-    if($retour==1) {
+    if($_POST['login'] == "admin" && $_POST['password'] == "admin") {
         $_SESSION['admin']=1;
-        $message="Authentifié";
+        print "<META http-equiv=\"refresh\": Content=\"0;URL=./index.php\">";    
     }
     else {
         $message = "Données incorrectes";

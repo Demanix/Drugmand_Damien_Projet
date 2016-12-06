@@ -1,4 +1,5 @@
 <?php
+//Index Public
 include ('./admin/lib/php/adm_liste_include.php');
 $cnx = Connexion::getInstance($dsn, $user, $pass);
 
@@ -21,11 +22,12 @@ session_start();
                 </header>
                 
                 <?php
+                $retour = 0;
                 if(isset($_POST['submit_login'])) {
                     $log = new UserDB($cnx);
                     $retour = $log->isAuthorized($_POST['login'], $_POST['password']);
-                    if($retour==1) {
-                        $_SESSION['user']=1;
+                    if($retour!=0) {
+                        $_SESSION['user']=$retour;
                         $message="Authentifié";
                     }
                     else {
@@ -37,21 +39,26 @@ session_start();
                 
                 <div class="pull-right">
                     <?php
+                        $log = new UserDB($cnx);
+                        $liste = $log->getClient($retour);
                         if(isset($_SESSION['user'])){ ?>
-                           <a href="./index.php?page=disconnect_user.php" class="pull-center">Déconnexion</a>
+                            <a href="./index.php?page=user_account.php&amp;nav=Mon Compte"><?php print $liste->nom_client; ?> <?php print $liste->prenom_client; ?></a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="./index.php?page=disconnect_user.php">Déconnexion</a>
                     <?php
                         } else { ?>
                             <form action="<?php print $_SERVER['PHP_SELF']; ?>" method='post' id="form_auth_">    
                                 Login : <input type="text" id="login_" name="login" />&nbsp;&nbsp;&nbsp;
                                 Mot de passe : <input type="password" id="password_" name="password" /> &nbsp;&nbsp;&nbsp;
                                 <input type="submit" name="submit_login" id="submit_login" value="Connexion" />&nbsp;&nbsp;&nbsp;
-                                <a href="./index.php?page=new_account.php">Créer un compte</a>
+                                <a href="./index.php?page=new_account.php&amp;nav=Nouveau Compte">Créer un compte</a>
                             </form>
                     <?php
                         }
                     ?>
                 </div>
 
+                </br></br>
                 <nav id="menu">
                     <?php
                         if (file_exists('./lib/php/menu.php')) {
@@ -75,7 +82,7 @@ session_start();
                 <section id="contenu">
                     <?php
                         if (!isset($_SESSION['page'])) {
-                            $_SESSION['page'] = "accueil";
+                            $_SESSION['page'] = "accueil.php";
                         }
                         if (isset($_GET['page'])) {
                             $_SESSION['page'] = $_GET['page'];
@@ -87,7 +94,7 @@ session_start();
                         else {
                             ?>
                             <span class="txtGras txtRouge">Oups!La page demandée n'existe pas</span>
-                            <meta http-refresh: Content="1;url=index.php?page=accueil"/>
+                            <meta http-refresh: Content="1;url=index.php?page=accueil.php"/>
                             <?php
                         }
                         ?> 
@@ -100,7 +107,7 @@ session_start();
             </br></br>
             <?php
                 if(isset($_SESSION['admin'])){ ?>
-                   <a href="./index.php?page=disconnect" class="pull-center">Zone administrateur : Déconnexion</a>
+                   <a href="./index.php?page=disconnect.php" class="pull-center">Zone administrateur : Déconnexion</a>
             <?php
                 } else { ?>
                    <a href="./admin/index.php" class="pull-center">Zone administrateur : Connexion</a>
