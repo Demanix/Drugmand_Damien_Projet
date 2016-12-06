@@ -16,7 +16,7 @@ if(isset($_POST['envoyer'])) {
 
 <h2>Veuillez remplir les champs suivant afin de créer votre compte</h2>
 
-<form action="index.php" method='post'>
+<form action="<?php print $_SERVER['PHP_SELF']; ?>" method='post'>
     <table id="inscrire">
         <tr>
                 <td><label class="gras" for="nom">Nom</label></td>
