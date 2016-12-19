@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Film {
     private $_attributs = array();
 
     public function __construct(array $data) {

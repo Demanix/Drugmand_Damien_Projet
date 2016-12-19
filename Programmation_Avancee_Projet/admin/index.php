@@ -1,5 +1,6 @@
 <?php
 //Index Administrateur
+include ('./lib/php/adm_liste_include.php');
 session_start();
 ?>
 

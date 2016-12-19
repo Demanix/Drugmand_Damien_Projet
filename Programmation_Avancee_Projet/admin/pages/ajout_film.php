@@ -1,24 +1,33 @@
-<?php require './lib/php/verifierCnx.php'; ?>
-
+<?php require './lib/php/verifierCnx.php'; 
+$cnx = Connexion::getInstance($dsn, $user, $pass);
+?>
 <?php
 if(isset($_POST['ajouter'])) {
-    $log = new UserDB($cnx);
-    $retour = $log->insert($_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['login'],$_POST['password']);
-    if($retour==1) {
-        $message="Le compte à bien été créé !";
-        print $message;
+    $log = new DiffusionDB($cnx);
+    $retour = $log->insert($_POST['salle'],$_POST['heure']);
+    if($retour>0) {
+        $log2 = new FilmDB($cnx);
+        $retour2 = $log2->insert($retour,$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['image']);
+        if($retour2>0) {
+            $message="Le film à bien été créé !";
+            print $message;
+        }
+        else {
+            $message2 = "Données incorrectes !";
+            print $message2;
+        }
     }
     else {
-        $message = "Données incorrectes !";
-        print $message;
+        $message3 = "Salle déjà utilisée à cette heure !";
+        print $message3;
     }
 }
 ?>
 
 <h2>Veuillez renseigner les champs suivants</h2>
 
-<form action="<?php print $_SERVER['PHP_SELF']; ?>" method='post'>
-    <table id="inscrire">
+<form action="index.php?page=ajout_film" method='post'>
+    <table id="ajout">
         <tr>
                 <td><label class="gras" for="nom">Nom du film</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
@@ -46,7 +55,7 @@ if(isset($_POST['ajouter'])) {
         <tr>
                 <td><label class="gras" for="salle">Salle</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><input type="text" name="salle" id="salle"/></td>
+                <td><input type="number" name="salle" id="salle"/></td>
         </tr>
         <tr><td>&nbsp; </td></tr>
         <tr>
@@ -55,12 +64,18 @@ if(isset($_POST['ajouter'])) {
                 <td><input type="text" name="heure" id="heure"/></td>
         </tr>
         <tr><td>&nbsp; </td></tr>
+        <tr>
+                <td><label class="gras" for="image">Image</label></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><input type="text" name="image" id="image"/></td>
+        </tr>
+        <tr><td>&nbsp; </td></tr>
         </br>	
         </br>
         <tr>
                 <td><input class="button" type="reset" value="Annuler"></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Ajouter" name="envoyer" id="envoyer"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Ajouter" name="ajouter" id="ajouter"></td>
         </tr>
     </table>
 </form>
