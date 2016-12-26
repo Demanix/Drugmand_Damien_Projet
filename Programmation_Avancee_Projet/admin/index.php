@@ -1,6 +1,7 @@
 <?php
 //Index Administrateur
 include ('./lib/php/adm_liste_include.php');
+$cnx = Connexion::getInstance($dsn, $user, $pass);
 session_start();
 ?>
 
@@ -10,6 +11,7 @@ session_start();
         <link rel="stylesheet" href="./lib/css/style.css" type="text/css"/> 
         <script src="./lib/js/jquery-3.1.1.js"></script>
         <script src="./lib/css/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
+        <script src="./lib/js/functionsJquery.js" type="text/javascript"></script>
         <meta charset='utf-8'>
     </head>
     <body>
@@ -55,7 +57,7 @@ session_start();
                         $_SESSION['page'] = "admin_connect";
                     }
                     else {
-                        if (isset($_SESSION['page'])) {
+                        if (!isset($_SESSION['page'])) {
                             $_SESSION['page'] = "accueil_admin";
                         }
                         if (isset($_GET['page'])) {

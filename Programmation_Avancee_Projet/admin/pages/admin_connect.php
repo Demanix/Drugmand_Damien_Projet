@@ -12,7 +12,7 @@ if(isset($_POST['submit_login'])) {
 
 <section id="message"><?php if (isset($message)) print $message; ?></section>
 <div class="container" id="inline">
-    <form action="<?php print $_SERVER['PHP_SELF']; ?>" method='post' id="form_auth_">    
+    <form action="index.php?page=accueil_admin" method='post' id="form_auth_">    
         <div class="row">
             <div class="col-sm-offset-1 txt150">Authentifiez-vous<br/><br/></div>
         </div>

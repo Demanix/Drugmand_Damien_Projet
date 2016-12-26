@@ -1,5 +1,4 @@
 <?php require './lib/php/verifierCnx.php'; 
-$cnx = Connexion::getInstance($dsn, $user, $pass);
 ?>
 <?php
 if(isset($_POST['ajouter'])) {

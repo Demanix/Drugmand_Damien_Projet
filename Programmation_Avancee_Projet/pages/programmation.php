@@ -1,21 +1,22 @@
 <h2>Cliquez sur l'affiche du film pour réserver votre ticket !</h2>
 <?php
-	$query="select * from film";
-	$result=pg_query($cnx,$query);
-	$nb=pg_num_rows($result);
-	
-	$tab=array();
-	for($i=0;$i<$nb;$i++)
-	{
-		$tab[$i]=pg_fetch_array($result,$i);
-	}?>
+$liste = new Vue_filmDB($cnx);
+$liste_t = $liste->getListeTousFilms();
+$nbrT = count($liste_t);
+
+?>
 <table>
 	<?php
-	for($i=0;$i<$nb;$i++) {?>
+	for($i=0;$i<$nbrT;$i++) { ?>
 	<tr>
-	<td><a href="index.php?page=inscrire.php&amp;nom_film=<?php echo $tab[$i]['nom_film'];?>&amp;id_film=<?php echo $tab[$i]['id_film'];?>">
-	<img class ="affiche" src="images/<?php  echo $tab[$i]['image']; ?>" /></a></td>
-	<td><h4 align="justified"><?php echo utf8_encode($tab[$i]['nom_film']);?></h4><p align="justified"><?php echo utf8_encode($tab[$i]['description']);?></p>
+        <td><?php print $liste_t[$i]->image ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+	<td><?php print $liste_t[$i]->nom ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td><?php print $liste_t[$i]->description ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td><?php print $liste_t[$i]->prix  . " &euro;" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td><?php print $liste_t[$i]->duree  . " minutes" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td><?php print "Salle " . $liste_t[$i]->id_salle ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td><?php print $liste_t[$i]->heure_diffusion ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td><?php print $liste_t[$i]->nb_places_restantes  . " places restantes" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	<?php } ?>
 </table>

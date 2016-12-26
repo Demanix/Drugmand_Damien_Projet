@@ -2,7 +2,7 @@
 
 class FilmDB extends Film{
     private $_db;
-    //private $_typeArray = array();
+    private $_typeArray = array();
     
     public function __construct($db){
         $this->_db = $db;

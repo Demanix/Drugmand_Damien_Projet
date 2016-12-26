@@ -12,6 +12,7 @@ session_start();
         <link rel="stylesheet" href="./admin/lib/css/style.css" type="text/css"/> 
         <script src="admin/lib/js/jquery-3.1.1.js"></script>
         <script src="admin/lib/css/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
+        <script src="admin/lib/js/functionsJquery.js" type="text/javascript"></script>
         <meta charset='utf-8'>
     </head>
     <body>
