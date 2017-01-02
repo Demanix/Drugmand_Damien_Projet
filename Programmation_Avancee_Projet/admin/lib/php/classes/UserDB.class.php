@@ -40,6 +40,24 @@ class UserDB extends User{
         return $retour;
     }
     
+    function update($id_client,$nom,$prenom,$email,$login,$password) {
+        try {            
+            $query="select update_client(:id_client,:nom_client,:prenom_client,:email_client,:login,:password)";
+            $resultset = $this->_db->prepare($query);
+            $resultset->bindValue(1,$id_client,PDO::PARAM_INT);
+            $resultset->bindValue(2,$nom,PDO::PARAM_STR);
+            $resultset->bindValue(3,$prenom,PDO::PARAM_STR);
+            $resultset->bindValue(4,$email,PDO::PARAM_STR);
+            $resultset->bindValue(5,$login,PDO::PARAM_STR);
+            $resultset->bindValue(6,md5($password),PDO::PARAM_STR);
+            $resultset->execute();
+            $retour = $resultset->fetchcolumn(0);
+        } catch (Exception $ex) {
+            print $ex->getMessage();
+        }
+        return $retour;
+    }
+    
     public function getClient($id) {
         $_typeArray = array();
         try {

@@ -25,7 +25,7 @@ class Vue_filmDB extends Vue_film{
     
     public function getListeTousFilms() {
         try {
-            $query = "SELECT * FROM vue_film";
+            $query = "SELECT * FROM vue_film order by nom, heure_diffusion";
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
             $data = $resultset->fetchAll();

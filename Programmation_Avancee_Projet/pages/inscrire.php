@@ -1,132 +1,119 @@
-<h2>Remplissez le formulaire suivant pour réserver votre ticket :</h2>
 <?php
-$flag=0;
-if(isset($_GET['envoyer']))
+if(isset($_GET['id_projection']))
 {
-	if($_GET['nom']!="" && $_GET['prenom']!="" && $_GET['email']!="")
-	{
-		if(isset($_GET['choix_jour']))
-		{
-			if(isset($_GET['choix_heure']))
-			{
-				$flag=1;
-				echo "<p class=\"recap\">";
-				echo "NOM : ".$_GET['nom']."<br><br>";
-				echo "PRENOM : ".$_GET['prenom']."<br><br>";
-				echo "EMAIL : ".$_GET['email']."<br><br>";
-				echo "Vous avez choisi de voir le film"." ce ".$_GET['choix_jour']." à ".$_GET['choix_heure'];
-				$query="INSERT INTO reservation(nom,prenom,email,jour,heure,id_film,nom_film)
-				values('".$_GET['nom']."','".$_GET['prenom']."','".$_GET['email']."','".$_GET['choix_jour']."',
-				'".$_GET['choix_heure']."',".$_GET['id_film'].",'".$_GET['nom_film']."')";
-				$result=pg_query($cnx,$query);
-				if($result)
-				{
-					echo "</br></br>Votre réservation a bien été enregistrée
-					<br>Vous allez être à présent rediriger vers la page d'accueil<br><br>";
-					header ("Refresh: 15;URL=index.php?page=accueil.php&nav=Accueil");
-				}
-				echo "</p>";
-				}
-		}
-		else
-		{
-			echo "<span class='rouge'>Vous devez effectuer un choix</span>";
-		}
-	}
-	else
-	{
-		echo "<span class='rouge'>Vous devez vous identifier</span>";
-	}
+    $liste = new Vue_filmDB($cnx);
+    $liste_t = $liste->getListeTousFilms();
+    $nbrT = count($liste_t);
+    $liste_f = $liste->getFilmById($_GET['id_projection']);
+    $nbrG = count($liste_f);
 }
 ?>
 
-<?php if($flag==0)
-	  { ?>
-		<form action="index.php" method="get">
-		<table id="inscrire">
-			<tr>
-				<td><label class="gras" for="nom">Nom</label></td>
-				<td><input type="text" name="nom" id="nom" placeholder="Nom"/></td>
-			</tr>
-			<tr><td>&nbsp </td></tr>
-			<tr>
-				<td><label class="gras" for="nom">Prénom</label></td>
-				<td><input type="text" name="prenom" id="prenom" placeholder="Prénom"/></td>
-			</tr>
-			<tr><td>&nbsp </td></tr>
-			<tr>
-				<td><label class="gras" for="nom">E-Mail</label></td>
-				<td><input type="email" name="email" id="email" placeholder="E-Mail"/></td>
-			</tr>
-			<tr><td>&nbsp </td></tr>
-			<tr>
-				<td class="gras">Sélectionnez le jour qui vous intéresse</td>
-			</tr>
-			<tr class="choix">
-				<td><label for="lundi">Lundi</label></td>
-				<td><input type="radio" name="choix_jour" value="lundi"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="mardi">Mardi</label></td>
-				<td><input type="radio" name="choix_jour" value="mardi"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="vendredi">Mercredi</label></td>
-				<td><input type="radio" name="choix_jour" value="mercredi"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="vendredi">Jeudi</label></td>
-				<td><input type="radio" name="choix_jour" value="jeudi"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="vendredi">Vendredi</label></td>
-				<td><input type="radio" name="choix_jour" value="vendredi"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="vendredi">Samedi</label></td>
-				<td><input type="radio" name="choix_jour" value="samedi"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="vendredi">Dimanche</label></td>
-				<td><input type="radio" name="choix_jour" value="dimanche"/></td>
-			</tr>
-			<tr><td>&nbsp </td></tr>
-			<tr class="lignefonce">
-				<td class="gras">Sélectionnez l'heure qui vous intéresse</td></br>
-			</tr>
-			<tr class="choix">
-				<td><label for="lundi">14h</label></td>
-				<td><input type="radio" name="choix_heure" value="14h"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="mardi">17h</label></td>
-				<td><input type="radio" name="choix_heure" value="17h"/></td>
-			</tr>
-			<tr class="choix">
-				<td><label for="vendredi">20h</label></td>
-				<td><input type="radio" name="choix_heure" value="20h"/></td>
-			</tr>
-			<tr><td>&nbsp </td></tr>
-			<tr>
-				<td  class="gras">Film choisi :</td>
-				<td><?php echo utf8_decode($_GET['nom_film']); ?></td>
-			</tr>
-			<tr>
-			<td><input type="hidden" value=<?php echo utf8_decode($_GET['nom_film']); ?> name="nom_film" /></td>
-			<td></td>
-			</tr>
-			
-			<tr>
-			<td><input type="hidden" value=<?php echo utf8_decode($_GET['id_film']); ?> name="id_film" /></td>
-			<td></td>
-			</tr>
-			</br>	
-			</br>
-			<tr>
-				<td><input class="button" type="reset" value="Annuler"></td>
-				<td><input class="button" type="submit" value="Confirmer" name="envoyer"></td>
-			</tr>
+<?php
+if(isset($_POST['confirmer'])) {
+    $log = new TicketDB($cnx);
+    $retour = $log->insert($_SESSION['user'],$_POST['id_projection'],$_POST['nb']);
+    if($retour!=-1) {
+        $message="Confirmation";
+    }
+    else {
+        $message = "Données incorrectes !";
+    }
+}
+?>
 
-		</table>
-		</form>
-<?php } ?>
+<?php
+if(isset($_SESSION['user']) && isset($_GET['id_projection']))
+{
+    ?><h2>Veuillez ajouter le nombre de tickets que vous voulez,</h2>
+    <h2>puis confirmer votre achat</h2><?php
+    if (isset($nbrG) && $nbrG > 0) {
+        ?>
+
+        <div class="container">
+            <?php
+            for ($i = 0; $i < $nbrG; $i++) {
+                ?>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="./images/<?php print $liste_f[$i]['image']; ?>" alt="image"/>                
+                    </div>
+                    <div class="col-sm-4 txtGras">
+
+                        <form action="index.php?page=inscrire.php" method='post'>
+                            <table id="ajout">
+                                <tr>
+                                        <td><label class="gras" for="nom">Nom du film</label></td>
+                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><p><?php print $liste_f[$i]['nom'];?></></td>
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                <tr>
+                                        <td><label class="gras" for="desc">Description</label></td>
+                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><p align="justified"><?php print $liste_f[$i]['description'];?></></td>
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                <tr>
+                                        <td><label class="gras" for="nom">Durée</label></td>
+                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><p><?php print $liste_f[$i]['duree']." minutes";?></></td>
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                <tr>
+                                        <td><label class="gras" for="prix">Prix</label></td>
+                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><p><?php print $liste_f[$i]['prix'];?></>&euro;</td>
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                <tr>
+                                        <td><label class="gras" for="heure">Heure</label></td>
+                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><p><?php print $liste_f[$i]['heure_diffusion'];?></p></td>
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                <tr>
+                                        <td><label class="gras" for="salle">Salle</label></td>
+                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><p><?php print $liste_f[$i]['id_salle'];?></></td>
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                <tr>
+                                        <td><label class="gras" for="salle">Nombre de tickets</label></td>
+                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><input type="number" name="nb" id="nb" /></td>
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                <tr>
+                                    <input type="hidden" value="<?php print $_GET['id_projection'];?>" name="id_projection" id="id_projection" />
+                                </tr>
+                                <tr><td>&nbsp; </td></tr>
+                                </br>	
+                                </br>
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Confirmer" name="confirmer" id="confirmer"></td>
+                                </tr>
+                            </table>
+                        </form>
+
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+        <?php
+    }
+}
+if(!isset($_SESSION['user'])) {
+    ?> <h2>Vous devez être connecté pour effectuer cette opération</h2> <?php
+}
+if(isset($message)) {
+    ?> <h2><?php print $message; ?></h2> <?php
+    if(isset($retour) && $retour>0){
+        ?> <p>Votre commande à bien été effectuée !</p> 
+        <p>Un email avec votre ticket vous a été envoyé. Vous pouvez également le consulter et le télécharger en cliquant ---><a href="index.php?page=PrintTicket.php&amp;id_ticket=<?php print $retour;?>" target="_blank">ici</a><---</p>
+        <p>Nous vous remercions de votre achat et nous vous souhaitons d'avance une agréable scéance.</p>
+        <p> A demain, au cinéma Demanix !</p><?php
+    }
+}

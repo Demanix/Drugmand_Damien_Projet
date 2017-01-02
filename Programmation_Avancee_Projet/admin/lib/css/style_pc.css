@@ -14,16 +14,6 @@
 {
     font-size: 1.2vw;
     margin:auto;
-    font-family : ar destine;
-}
-
-.affiche:hover
-{
-    filter: invert(1);
-    -webkit-filter: invert(1);
-    -moz-filter: invert(1);
-    -o-filter: invert(1);
-    -ms-filter: invert(1);
 }
 
 .map
@@ -77,10 +67,8 @@ html,body
 
 .affiche
 {
-    width:150px;
-    margin-right:50px;
-    margin-left:20px;
-    margin-top:50px;
+    width:360px;
+    margin:0 auto;
 }
 
 body

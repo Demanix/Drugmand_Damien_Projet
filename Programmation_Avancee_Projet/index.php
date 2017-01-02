@@ -29,7 +29,6 @@ session_start();
                     $retour = $log->isAuthorized($_POST['login'], $_POST['password']);
                     if($retour!=0) {
                         $_SESSION['user']=$retour;
-                        $message="Authentifié";
                     }
                     else {
                         $message = "Données incorrectes";
@@ -40,15 +39,16 @@ session_start();
                 
                 <div class="pull-right">
                     <?php
-                        $log = new UserDB($cnx);
-                        $liste = $log->getClient($retour);
-                        if(isset($_SESSION['user'])){ ?>
+                        if(isset($_SESSION['user'])){ 
+                            $log = new UserDB($cnx);
+                            $liste = $log->getClient($_SESSION['user']);
+                        ?>
                             <a href="./index.php?page=user_account.php&amp;nav=Mon Compte"><?php print $liste->nom_client; ?> <?php print $liste->prenom_client; ?></a>
                             &nbsp;&nbsp;&nbsp;
                             <a href="./index.php?page=disconnect_user.php">Déconnexion</a>
                     <?php
                         } else { ?>
-                            <form action="<?php print $_SERVER['PHP_SELF']; ?>" method='post' id="form_auth_">    
+                            <form action="./index.php?page=accueil.php&amp;nav=Accueil" method='post' id="form_auth_">    
                                 Login : <input type="text" id="login_" name="login" />&nbsp;&nbsp;&nbsp;
                                 Mot de passe : <input type="password" id="password_" name="password" /> &nbsp;&nbsp;&nbsp;
                                 <input type="submit" name="submit_login" id="submit_login" value="Connexion" />&nbsp;&nbsp;&nbsp;

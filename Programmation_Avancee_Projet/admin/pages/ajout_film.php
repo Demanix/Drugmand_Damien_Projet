@@ -1,24 +1,91 @@
 <?php require './lib/php/verifierCnx.php'; 
 ?>
 <?php
+
+
+
 if(isset($_POST['ajouter'])) {
     $log = new DiffusionDB($cnx);
-    $retour = $log->insert($_POST['salle'],$_POST['heure']);
-    if($retour>0) {
-        $log2 = new FilmDB($cnx);
-        $retour2 = $log2->insert($retour,$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['image']);
-        if($retour2>0) {
-            $message="Le film à bien été créé !";
-            print $message;
+    $log2 = new FilmDB($cnx);
+    if (isset($_POST['11h']))
+    {
+        $retour = $log->insert($_POST['salle'],"11h");
+        if($retour>0) {
+            $retour2 = $log2->insert($retour,$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['image']);
+            if($retour2>0) {
+                $message="Le film a bien été créé !";
+                print $message;
+            }
+            else {
+                $message2 = "Données incorrectes !";
+                print $message2;
+            }
         }
         else {
-            $message2 = "Données incorrectes !";
-            print $message2;
+            $message3 = "Salle déjà utilisée à cette heure !";
+            print $message3;
         }
     }
-    else {
-        $message3 = "Salle déjà utilisée à cette heure !";
-        print $message3;
+    if (isset($_POST['14h']))
+    {
+        $retour = $log->insert($_POST['salle'],"14h");
+        if($retour>0) {
+            $retour2 = $log2->insert($retour,$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['image']);
+            if($retour2>0) {
+                $message="Le film a bien été créé !";
+                print $message;
+            }
+            else {
+                $message2 = "Données incorrectes !";
+                print $message2;
+            }
+        }
+        else {
+            $message3 = "Salle déjà utilisée à cette heure !";
+            print $message3;
+        }
+    }
+    if (isset($_POST['17h']))
+    {
+        $retour = $log->insert($_POST['salle'],"17h");
+        if($retour>0) {
+            $retour2 = $log2->insert($retour,$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['image']);
+            if($retour2>0) {
+                $message="Le film a bien été créé !";
+                print $message;
+            }
+            else {
+                $message2 = "Données incorrectes !";
+                print $message2;
+            }
+        }
+        else {
+            $message3 = "Salle déjà utilisée à cette heure !";
+            print $message3;
+        }
+    }
+    if (isset($_POST['21h']))
+    {
+        $retour = $log->insert($_POST['salle'],"21h");
+        if($retour>0) {
+            $retour2 = $log2->insert($retour,$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['image']);
+            if($retour2>0) {
+                $message="Le film a bien été créé !";
+                print $message;
+            }
+            else {
+                $message2 = "Données incorrectes !";
+                print $message2;
+            }
+        }
+        else {
+            $message3 = "Salle déjà utilisée à cette heure !";
+            print $message3;
+        }
+    }
+    else
+    {
+        echo 'Vous n\'avez pas choisi d\'heure';
     }
 }
 ?>
@@ -48,7 +115,7 @@ if(isset($_POST['ajouter'])) {
         <tr>
                 <td><label class="gras" for="prix">Prix</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><input type="float" name="prix" id="prix"/></td>
+                <td><input type="number" name="prix" id="prix"/></td>
         </tr>
         <tr><td>&nbsp; </td></tr>
         <tr>
@@ -60,7 +127,11 @@ if(isset($_POST['ajouter'])) {
         <tr>
                 <td><label class="gras" for="heure">Heure</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><input type="text" name="heure" id="heure"/></td>
+                <td><input type="checkbox" name="11h" id="11h"/>11h&nbsp;&nbsp;
+                    <input type="checkbox" name="14h" id="14h"/>14h&nbsp;&nbsp;
+                    <input type="checkbox" name="17h" id="17h"/>17h&nbsp;&nbsp;
+                    <input type="checkbox" name="21h" id="21h"/>21h&nbsp;&nbsp;
+                </td>
         </tr>
         <tr><td>&nbsp; </td></tr>
         <tr>

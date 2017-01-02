@@ -1,3 +1,18 @@
+/**************************Carousel accueil ***************************/
+.carousel{
+    background: #2f4357;
+    margin-top: 20px;
+    width:100%;
+}
+.item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.bs-example{
+    margin: 10px;
+}
+
 .add
 {
     text-align : center;
@@ -12,16 +27,6 @@
 {
     font-size: 1.2vw;
     margin:auto;
-    font-family : ar destine;
-}
-
-.affiche:hover
-{
-    filter: invert(1);
-    -webkit-filter: invert(1);
-    -moz-filter: invert(1);
-    -o-filter: invert(1);
-    -ms-filter: invert(1);
 }
 
 .map
@@ -75,16 +80,15 @@ html,body
 
 .affiche
 {
-    width:150px;
-    margin-right:50px;
-    margin-left:20px;
-    margin-top:50px;
+    width:250px;
 }
 
 body
 {
     margin : 0px 0px;
-    background-image: url("../../images/fond.jpg");
+    background: url(../../images/fond.jpg) no-repeat center fixed; 
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover;
 }
 
 #conteneur

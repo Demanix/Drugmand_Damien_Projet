@@ -21,4 +21,17 @@ class DiffusionDB extends Diffusion{
         }
         return $retour;
     }
+    
+    function delete($id_diffusion) {
+        try {            
+            $query="select delete_diffusion(:id_diffusion)";
+            $resultset = $this->_db->prepare($query);
+            $resultset->bindValue(1,$id_diffusion,PDO::PARAM_INT);
+            $resultset->execute();
+            $retour = $resultset->fetchcolumn(0);
+        } catch (Exception $ex) {
+            print $ex->getMessage();
+        }
+        return $retour;
+    }
 }
