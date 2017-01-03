@@ -12,7 +12,7 @@ class Connexion {
             try {
                 self::$_instance = new PDO($dsn, $user, $pass);
                 self::$_instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                print "ok";
+                //print "ok";
             } catch (PDOException $e) {
                 print 'Erreur ' . $e->getMessage() . '<br />';
             }

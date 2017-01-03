@@ -11,13 +11,20 @@ if(isset($_GET['id_projection']))
 
 <?php
 if(isset($_POST['confirmer'])) {
-    $log = new TicketDB($cnx);
-    $retour = $log->insert($_SESSION['user'],$_POST['id_projection'],$_POST['nb']);
-    if($retour!=-1) {
-        $message="Confirmation";
+    $log2 = new DiffusionDB($cnx);
+    $retour2 = $log2->update($_POST['id_diffusion'],$_POST['nb']);
+    if($retour2==1) {
+        $log = new TicketDB($cnx);
+        $retour = $log->insert($_SESSION['user'],$_POST['id_projection'],$_POST['nb']);
+        if($retour != -1) {
+            $message = "Confirmation";
+        }
+        else {
+            $message = "Données incorrectes";
+        }
     }
     else {
-        $message = "Données incorrectes !";
+        $message = "Il n'y a plus assez de places libres dans cette salle !";
     }
 }
 ?>
@@ -86,6 +93,7 @@ if(isset($_SESSION['user']) && isset($_GET['id_projection']))
                                 <tr><td>&nbsp; </td></tr>
                                 <tr>
                                     <input type="hidden" value="<?php print $_GET['id_projection'];?>" name="id_projection" id="id_projection" />
+                                    <input type="hidden" value="<?php print $liste_f[$i]['id_diffusion'];?>" name="id_diffusion" id="id_diffusion" />
                                 </tr>
                                 <tr><td>&nbsp; </td></tr>
                                 </br>	

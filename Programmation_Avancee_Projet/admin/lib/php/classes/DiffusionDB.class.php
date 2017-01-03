@@ -34,4 +34,18 @@ class DiffusionDB extends Diffusion{
         }
         return $retour;
     }
+    
+    function update($id_diffusion,$nb) {
+        try {            
+            $query="select update_diffusion(:id_diffusion,:nb)";
+            $resultset = $this->_db->prepare($query);
+            $resultset->bindValue(1,$id_diffusion,PDO::PARAM_INT);
+            $resultset->bindValue(2,$nb,PDO::PARAM_INT);
+            $resultset->execute();
+            $retour = $resultset->fetchcolumn(0);
+        } catch (Exception $ex) {
+            print $ex->getMessage();
+        }
+        return $retour;
+    }
 }

@@ -3,6 +3,8 @@
     background: #2f4357;
     margin-top: 20px;
     width:100%;
+    min-height: 450px;
+    max-height: 450px;
 }
 .item img{
     margin: 0 auto; /* Align slide image horizontally center */
@@ -13,6 +15,7 @@
     margin: 10px;
 }
 
+/**************************Autres ***************************/
 .add
 {
     text-align : center;

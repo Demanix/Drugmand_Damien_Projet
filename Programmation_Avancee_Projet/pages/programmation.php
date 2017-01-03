@@ -8,32 +8,54 @@ $nbrT = count($liste_t);
         <div id="gt_carousel" class="carousel slide" data-ride="carousel">
             <!-- Carousel indicators : qui indiquent l'image affichée -->
             <ol class="carousel-indicators">
-                <li data-target="#gt_carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#gt_carousel" data-slide-to="1"></li>
-                <li data-target="#gt_carousel" data-slide-to="2"></li>
-                <li data-target="#gt_carousel" data-slide-to="3"></li>
-                <li data-target="#gt_carousel" data-slide-to="4"></li>
-            </ol>   
+                <?php
+                $nb_fichier = 0;
+                if($dossier = opendir('././admin/images/affiches'))
+                {
+                    while(false != ($fichier = readdir($dossier)))
+                    {
+                        if($fichier != ".." && $fichier != ".")
+                        {
+                          $nb_fichier++;
+                        }
+                    }
+                    closedir($dossier);
+                }
+                for($i=0;$i<$nb_fichier;$i++)
+                {
+                    if($i==0) {
+                            ?><li data-target="#gt_carousel" data-slide-to="0" class="active"></li><?php
+                    }
+                    else {
+                            ?><li data-target="#gt_carousel" data-slide-to="<?php $i; ?>"></li><?php
+                    }
+                }
+                ?>
+            </ol>
             <!-- Wrapper for carousel items -->
             <div class="carousel-inner">
-                <div class="item active">
-                    <img class="affiche" src="./admin/images/image1.jpg" alt="First Slide">
-                </div>
-                <div class="item">
-                    <img class="affiche" src="./admin/images/image2.jpg" alt="Second Slide">
-                </div>
-                <div class="item">
-                    <img class="affiche" src="./admin/images/image3.jpg" alt="Second Slide">
-                </div>
-                <div class="item">
-                    <img class="affiche" src="./admin/images/image4.jpg" alt="Second Slide">
-                </div>
-                <div class="item">
-                    <img class="affiche" src="./admin/images/image5.jpg" alt="Third Slide">
-                </div>
+                <?php
+                if($dossier = opendir('././admin/images/affiches'))
+                {
+                    $nb_fichier2 = 0;
+                    while(false !== ($fichier = readdir($dossier)))
+                    {
+                        if($fichier != ".." && $fichier != ".")
+                        {
+                            $nb_fichier2++;
+                            if($nb_fichier2 == 1) {
+                                    ?><div class="item active"><img class="affiche" src="././admin/images/affiches/<?php print $fichier; ?>" alt="First Slide"></div><?php
+                            }
+                            else {
+                                    ?><div class="item"><img class="affiche" src="././admin/images/affiches/<?php print $fichier; ?>"></div><?php
+                            }
+                        }
+                    }
+                    closedir($dossier);
+                }
+                ?>
             </div>
             <!-- Carousel controls -->
-
             <a class="carousel-control left" href="#gt_carousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>

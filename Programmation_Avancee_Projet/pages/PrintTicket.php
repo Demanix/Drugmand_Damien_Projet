@@ -17,7 +17,7 @@ $pdf->SetFillColor(255,255,255);
 $pdf->SetTextColor(0,0,0);
 $pdf->SetFont('Arial','',12);
 $pdf->Image('././admin/images/qrcode.png',11,7,-120);
-$pdf->Image('././admin/images/image1.jpg',4,7,-300);
+$pdf->Image('././admin/images//affiches/'.$ticket[0]['image'],4,7,-300);
 $pdf->SetXY(4,17);
 $pdf->Cell(16,1,utf8_decode("Nom : ".$ticket[0]['nom']),0,1,'L',1);
 $pdf->SetXY(4,18);
