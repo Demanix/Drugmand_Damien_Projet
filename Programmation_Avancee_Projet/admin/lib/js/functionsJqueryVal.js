@@ -6,26 +6,42 @@ $(document).ready(function(){
     }, "Format non valide.");
     
     
-    $("#form_commande").validate({
+    $("#form_new_client").validate({
         rules: {
-            email1: "required",
-            email2: {
-                equalTo: "#email1"
-            },
             nom: "required",
             prenom: "required",
-            telephone: {
-                required: true,
-                regex:/^(0)[0-9]{1,2}\/[0-9]{2}\.[0-9]{2}\.[0-9]{2}$/
-            },
-            adresse: "required",
-            numero: "required",
-            codepostal: {
-                required: true,
-                min: 1000,
-                max: 9999
-            },
-            localite: "required",
+            email: "required",
+            login: "required",
+            password: "required",
+            submitHandler: function(form) {
+                form.submit();
+            }
+        }
+    });
+    
+    $("#form_ajout_film").validate({
+        rules: {
+            nom: "required",
+            duree: "required",
+            desc: "required",
+            prix: "required",
+            salle: "required",
+            heure: "required",
+            image: "required",
+            submitHandler: function(form) {
+                form.submit();
+            }
+        }
+    });
+    
+    $("#form_gestion_film").validate({
+        rules: {
+            nom: "required",
+            duree: "required",
+            desc: "required",
+            prix: "required",
+            salle: "required",
+            heure: "required",
             submitHandler: function(form) {
                 form.submit();
             }

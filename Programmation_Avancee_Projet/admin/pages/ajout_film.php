@@ -3,24 +3,9 @@
 
 if(isset($_POST['ajouter'])) {
     $flag = 0;
-    if($_POST['nom']=="") {
-        print "Vous n'avez pas mentionner le nom</br>";
-        $flag = 1;
-    }
-    if($_POST['desc']=="") {
-        print "Vous n'avez pas entré la description</br>";
-        $flag = 1;
-    }
-    if($_POST['duree']=="") {
-        print "Vous n'avez pas mentionné la durée</br>";
-        $flag = 1;
-    }
-    if($_POST['prix']=="") {
-        print "Vous n'avez pas mentionné le prix</br>";
-        $flag = 1;
-    }
-    if($_POST['salle']=="") {
-        print "Vous n'avez pas choisi de salle</br>";
+    
+    if(empty($_POST['nom']) || empty($_POST['desc']) || empty($_POST['duree']) || empty($_POST['prix']) || empty($_POST['salle'])) {
+        print "Veuillez renseigner tous les champs</br>";
         $flag = 1;
     }
     if($_FILES['image']['error'] > 0) {
@@ -42,7 +27,6 @@ if(isset($_POST['ajouter'])) {
         print "Extension incorrecte</br>";
         $flag = 1;
     }
-    
     
     if($flag == 0) {
         $log = new DiffusionDB($cnx);
@@ -134,8 +118,8 @@ if(isset($_POST['ajouter'])) {
 
 <h2>Veuillez renseigner les champs suivants</h2>
 
-<form action="index.php?page=ajout_film" method='post' enctype="multipart/form-data">
-    <table id="ajout">
+<form action="index.php?page=ajout_film" method='post' enctype="multipart/form-data" id="form_ajout_film">
+    <table>
         <tr>
                 <td><label class="gras" for="nom">Nom du film</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>

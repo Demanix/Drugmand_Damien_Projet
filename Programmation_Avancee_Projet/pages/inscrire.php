@@ -11,20 +11,27 @@ if(isset($_GET['id_projection']))
 
 <?php
 if(isset($_POST['confirmer'])) {
-    $log2 = new DiffusionDB($cnx);
-    $retour2 = $log2->update($_POST['id_diffusion'],$_POST['nb']);
-    if($retour2==1) {
-        $log = new TicketDB($cnx);
-        $retour = $log->insert($_SESSION['user'],$_POST['id_projection'],$_POST['nb']);
-        if($retour != -1) {
-            $message = "Confirmation";
+    if(!empty($_POST['nb']))
+    {
+        $log2 = new DiffusionDB($cnx);
+        $retour2 = $log2->update($_POST['id_diffusion'],$_POST['nb']);
+        if($retour2==1) {
+            $log = new TicketDB($cnx);
+            $retour = $log->insert($_SESSION['user'],$_POST['id_projection'],$_POST['nb']);
+            if($retour != -1) {
+                $message = "Confirmation";
+            }
+            else {
+                $message = "Données incorrectes";
+            }
         }
         else {
-            $message = "Données incorrectes";
+            $message = "Il n'y a plus assez de places libres dans cette salle !";
         }
     }
-    else {
-        $message = "Il n'y a plus assez de places libres dans cette salle !";
+    else
+    {
+        $message = "Vous n'avez pas selectionner le nombre de tickets";
     }
 }
 ?>
@@ -37,16 +44,10 @@ if(isset($_SESSION['user']) && isset($_GET['id_projection']))
     if (isset($nbrG) && $nbrG > 0) {
         ?>
 
-        <div class="container">
             <?php
             for ($i = 0; $i < $nbrG; $i++) {
                 ?>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <img src="./images/<?php print $liste_f[$i]['image']; ?>" alt="image"/>                
-                    </div>
-                    <div class="col-sm-4 txtGras">
-
+                    <div class="col-sm-12">
                         <form action="index.php?page=inscrire.php" method='post'>
                             <table id="ajout">
                                 <tr>
@@ -88,7 +89,7 @@ if(isset($_SESSION['user']) && isset($_GET['id_projection']))
                                 <tr>
                                         <td><label class="gras" for="salle">Nombre de tickets</label></td>
                                         <td>&nbsp;&nbsp;&nbsp;</td>
-                                        <td><input type="number" name="nb" id="nb" /></td>
+                                        <td><input type="number" name="nb" id="nb" min="1" /></td>
                                 </tr>
                                 <tr><td>&nbsp; </td></tr>
                                 <tr>
@@ -103,14 +104,9 @@ if(isset($_SESSION['user']) && isset($_GET['id_projection']))
                                 </tr>
                             </table>
                         </form>
-
                     </div>
-                </div>
                 <?php
             }
-            ?>
-        </div>
-        <?php
     }
 }
 if(!isset($_SESSION['user'])) {

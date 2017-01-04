@@ -34,15 +34,21 @@ class Vue_filmDB extends Vue_film{
         } catch (PDOException $e) {
             print $e->getMessage();
         }
-        
-        while ($data = $resultset->fetch()) {
-            try {
-                $_filmArray[] = new Vue_film($data);
-            } catch (PDOException $e) {
-                print $e->getMessage();
+        if($data!=null)
+        {
+            while ($data = $resultset->fetch()) {
+                try {
+                    $_filmArray[] = new Vue_film($data);
+                } catch (PDOException $e) {
+                    print $e->getMessage();
+                }
             }
+            return $_filmArray;
         }
-        return $_filmArray;
+        else
+        {
+            return null;
+        }
     }
 
 }

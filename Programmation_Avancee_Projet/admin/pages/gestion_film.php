@@ -30,6 +30,9 @@ if(isset($_POST['supprimer'])) {
             print $message2;
         }
     }
+    if($retour==-3) {
+        print "Des clients ont acheté des tickets pour ce film !";
+    }
     else {
         $message3 = "Erreur de suppression du film !";
         print $message3;
@@ -37,26 +40,53 @@ if(isset($_POST['supprimer'])) {
 }
 
 if(isset($_POST['modifier'])) {
-    $log = new FilmDB($cnx);
-    $retour = $log->update($_POST['id_projection'],$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['image']);
-    if($retour>0) {
-        print "<meta http-equiv=\"refresh\" content=\"0\">";
-        $message="Le film a bien été mis à jour !";
-        print $message;
+    $flag = 0;
+    if(empty($_POST['nom']) || empty($_POST['desc']) || empty($_POST['duree']) || empty($_POST['prix'])) {
+        print "Veuillez renseigner tous les champs</br>";
+        $flag = 1;
     }
-    else {
-        $message2 = "Données incorrectes !";
-        print $message2;
+    if($_FILES['image']['error'] > 0) {
+        if($_FILES['image']['error'] == 1) {
+            print "Le fichier trop volumineux</br>";
+        }
+        else {
+            print "Erreur lors du transfert</br>";
+        }
+        $flag = 1;
+    }
+    
+    $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
+    $extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'], '.')  ,1)  );
+    if (!in_array($extension_upload,$extensions_valides) ) {
+        print "Extension incorrecte</br>";
+        $flag = 1;
+    }
+    
+    if($flag == 0) {
+        $log = new FilmDB($cnx);
+        $retour = $log->update($_POST['id_projection'],$_POST['nom'],$_POST['prix'],$_POST['desc'],$_POST['duree'],$_POST['nom'].".".$extension_upload);
+        if($retour>0) {
+            $nom = "./images/affiches/{$_POST['nom']}.{$extension_upload}";
+            $resultat = move_uploaded_file($_FILES['image']['tmp_name'],$nom);
+            if ($resultat) {
+                print "Transfert réussi";
+            }
+            print "<meta http-equiv=\"refresh\" content=\"0\">";
+            $message="Le film a bien été mis à jour !";
+            print $message;
+        }
+        else {
+            $message2 = "Données incorrectes !";
+            print $message2;
+        }
     }
 }
 ?>
 
 <h2 class="txtRouge">Gestion des projections</h2>
 
-<div class="container">
-    <div class="row">
-        <form action="<?php print $_SERVER['PHP_SELF']; ?>" method="get">
-            <div class="col-sm-3">
+<form action="<?php print $_SERVER['PHP_SELF']; ?>" method="get">
+            <div class="col-sm-4">
                 <select name="choix_film" id="choix_film">
                     <option value="0">Choisissez</option>
                     <?php
@@ -77,28 +107,17 @@ if(isset($_POST['modifier'])) {
                 <input type="submit" name="submit_type" value="Choisir" id="submit_type"/>
             </div> 
         </form>
-    </div>
-</div>
 <br/>
-
 <?php
 if (isset($nbrG) && $nbrG > 0) {
     ?>
 
-    <div class="container">
         <?php
         for ($i = 0; $i < $nbrG; $i++) {
-            $temp_d=$liste_f[$i]['id_diffusion'];
-            $temp_p=$liste_f[$i]['id_projection'];
             ?>
-            <div class="row">
-                <div class="col-sm-3">
-                    <img src="./images/<?php print $liste_f[$i]['image']; ?>" alt="image"/>                
-                </div>
-                <div class="col-sm-4 txtGras">
-                    
-                    <form action="index.php?page=gestion_film" method='post'>
-                        <table id="ajout">
+                <div class="col-sm-4">
+                    <form action="index.php?page=gestion_film" method='post' enctype="multipart/form-data" id="form_gestion_film">
+                        <table>
                             <tr>
                                     <td><label class="gras" for="nom">Nom du film</label></td>
                                     <td>&nbsp;&nbsp;&nbsp;</td>
@@ -124,21 +143,9 @@ if (isset($nbrG) && $nbrG > 0) {
                             </tr>
                             <tr><td>&nbsp; </td></tr>
                             <tr>
-                                    <td><label class="gras" for="salle">Salle</label></td>
-                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td><input type="number" name="salle" id="salle" value="<?php print $liste_f[$i]['id_salle'];?>" readonly /></td>
-                            </tr>
-                            <tr><td>&nbsp; </td></tr>
-                            <tr>
-                                    <td><label class="gras" for="heure">Heure</label></td>
-                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td><input type="text" name="heure" id="heure" value="<?php print $liste_f[$i]['heure_diffusion'];?>" readonly /></td>
-                            </tr>
-                            <tr><td>&nbsp; </td></tr>
-                            <tr>
                                     <td><label class="gras" for="image">Image</label></td>
                                     <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td><input type="text" name="image" id="image" value="<?php print $liste_f[$i]['image'];?>"  /></td>
+                                    <td><input type="file" name="image" id="image" /></td>
                             </tr>
                             <tr>
                                 <input type="hidden" value="<?php print $liste_f[$i]['id_diffusion'];?>" name="id_diffusion" id="id_diffusion" />
@@ -148,22 +155,16 @@ if (isset($nbrG) && $nbrG > 0) {
                             </br>	
                             </br>
                             <tr>
-                            
-                                    <td><input class="button" type="reset" value="Annuler"></td>
-                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Supprimer" name="supprimer" id="supprimer">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Modifier" name="modifier" id="modifier"></td>
+                                <td><input class="button" type="reset" value="Annuler"></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Supprimer" name="supprimer" id="supprimer"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="submit" value="Modifier" name="modifier" id="modifier"/></td>
                             </tr>
                         </table>
                     </form>
                     
                 </div>
-            </div>
             <?php
         }
-        ?>
-    </div>
-        <?php
     }
-    ?>
 

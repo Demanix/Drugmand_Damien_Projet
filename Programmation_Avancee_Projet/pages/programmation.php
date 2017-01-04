@@ -2,6 +2,10 @@
 $liste = new Vue_filmDB($cnx);
 $liste_t = $liste->getListeTousFilms();
 $nbrT = count($liste_t);
+if($nbrT==0) {
+    ?><h2>Il n'y a aucun film pour le moment !</h2><?php
+}
+ else {
 ?>
 <div class="pull-center">
     <div class="col-sm-12">
@@ -69,47 +73,60 @@ $nbrT = count($liste_t);
 <h2>Cliquez sur l'heure du film de votre choix pour réserver votre ticket !</h2>
 
 </br>&nbsp;</br>&nbsp;
-<table>
-	<?php
-	for($i=0;$i<$nbrT;$i++) { ?>
-	<tr>
-            <td><?php print $liste_t[$i]->image ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-            <td><?php print $liste_t[$i]->nom ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-            <td><?php print $liste_t[$i]->description ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-            <td><?php print $liste_t[$i]->prix  . " &euro;" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-            <td><?php print $liste_t[$i]->duree  . " minutes" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-            <td><?php print "Salle " . $liste_t[$i]->id_salle ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-            
-            <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '11h'){?>
-            <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
-            <?php if($i+1<$nbrT && $liste_t[$i+1]->nom == $liste_t[$i]->nom){$i=$i+1;} ?>
-            <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
-            <?php } ?>
-            
-            <td>&nbsp;&nbsp;&nbsp;</td>
-            
-            <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '14h'){?>
-            <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
-            <?php if($i+1<$nbrT && $liste_t[$i+1]->nom == $liste_t[$i]->nom){$i=$i+1;} ?>
-            <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
-            <?php } ?>
-            
-            <td>&nbsp;&nbsp;&nbsp;</td>
-            
-            <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '17h'){?>
-            <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
-            <?php if($i+1<$nbrT && $liste_t[$i+1]->nom == $liste_t[$i]->nom){$i=$i+1;} ?>
-            <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
-            <?php } ?>
-            
-            <td>&nbsp;&nbsp;&nbsp;</td>
-            
-            <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '21h'){?>
-            <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
-            <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
-            <?php } ?>
-            
-            <td>&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-	<?php } ?>
-</table>
+<div class="pull-center">
+    <div class="col-sm-12">
+        <table class="programmation">
+            <tr class="programmation3">
+                <td>Nom</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td>Prix</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td>Durée</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td>Salle</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+                <?php
+                $j = 0;
+                for($i=0;$i<$nbrT;$i++) { $j++;?>
+            <tr <?php if($j % 2){print 'class="programmation2"';}else{print 'class="programmation1"';}?> title="<?php print $liste_t[$i]->description ?>">
+                    <td><?php print $liste_t[$i]->nom ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><?php print $liste_t[$i]->prix  . " &euro;" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><?php print $liste_t[$i]->duree  . " minutes" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><?php print $liste_t[$i]->id_salle ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+
+                    <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '11h'){?>
+                    <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
+                    <?php if($i+1<$nbrT && $liste_t[$i+1]->nom == $liste_t[$i]->nom){$i=$i+1;} ?>
+                    <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
+                    <?php } ?>
+
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+
+                    <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '14h'){?>
+                    <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
+                    <?php if($i+1<$nbrT && $liste_t[$i+1]->nom == $liste_t[$i]->nom){$i=$i+1;} ?>
+                    <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
+                    <?php } ?>
+
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+
+                    <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '17h'){?>
+                    <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
+                    <?php if($i+1<$nbrT && $liste_t[$i+1]->nom == $liste_t[$i]->nom){$i=$i+1;} ?>
+                    <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
+                    <?php } ?>
+
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+
+                    <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '21h'){?>
+                    <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>
+                    <?php } else { ?> <td>&nbsp;&nbsp;/&nbsp;&nbsp;</td>
+                    <?php } ?>
+
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+                <?php } ?>
+        </table>
+    </div>
+</div>
+<?php
+ }

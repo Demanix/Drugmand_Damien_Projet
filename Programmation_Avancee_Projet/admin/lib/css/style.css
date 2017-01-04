@@ -90,7 +90,7 @@ body
 {
     margin : 0px 0px;
     background: url(../../images/fond.jpg) no-repeat center fixed; 
-    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    -webkit-background-size: cover;
     background-size: cover;
 }
 
@@ -154,7 +154,7 @@ body
     font-family : ar destine;
 }
 
-#image
+#image_accueil
 {
     width : 320px;
     height : 180px;
@@ -195,4 +195,27 @@ body
 .petit
 {
     font-size : 80%;
+}
+
+.programmation1
+{
+    background-color: #2f4357;
+    color: whitesmoke;
+}
+
+.programmation2
+{
+    background-color: whitesmoke;
+    color: #2f4357;
+}
+
+.programmation3
+{
+    background-color: darkred;
+    color: whitesmoke;
+}
+
+.programmation
+{
+    width: 100%;
 }

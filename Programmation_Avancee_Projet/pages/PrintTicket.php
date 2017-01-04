@@ -16,8 +16,7 @@ $pdf->SetDrawColor(0,0,0);
 $pdf->SetFillColor(255,255,255);
 $pdf->SetTextColor(0,0,0);
 $pdf->SetFont('Arial','',12);
-$pdf->Image('././admin/images/qrcode.png',11,7,-120);
-$pdf->Image('././admin/images//affiches/'.$ticket[0]['image'],4,7,-300);
+$pdf->Image('././admin/images/qrcode.png',7.5,7,-120);
 $pdf->SetXY(4,17);
 $pdf->Cell(16,1,utf8_decode("Nom : ".$ticket[0]['nom']),0,1,'L',1);
 $pdf->SetXY(4,18);
@@ -35,7 +34,7 @@ $pdf->Cell(16,1,utf8_decode("Numéro du client : ".$ticket[0]['id_client']),0,1,
 $pdf->SetXY(12,18);
 $pdf->Cell(16,1,utf8_decode("Nom du client : ".$ticket[0]['nom_client']),0,1,'L',1);
 $pdf->SetXY(12,19);
-$pdf->Cell(16,1,utf8_decode("Préom du client : ".$ticket[0]['prenom_client']),0,1,'L',1);
+$pdf->Cell(16,1,utf8_decode("Prénom du client : ".$ticket[0]['prenom_client']),0,1,'L',1);
 $pdf->SetXY(12,20);
 $pdf->Cell(16,1,utf8_decode("Email : ".$ticket[0]['email_client']),0,1,'L',1);
 $pdf->Output();
