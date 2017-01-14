@@ -1,7 +1,26 @@
+/* style pour tablette */
 p
 {
-    text-align: justify;
-    margin-right:20px;
-    font-size:1.1vw;
-    font-family : ar cena;
+    font-size: 18px;
+}
+
+#navigation
+{
+    font-size: 20px;
+}
+
+.programmation
+{
+    margin-left: 0px;
+}
+
+#header
+{
+    background-image: url("../../images/banniere2.jpg");
+    background-repeat: no-repeat;
+}
+
+.colaenlever2
+{
+    display: none;
 }

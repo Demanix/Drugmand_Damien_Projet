@@ -23,34 +23,34 @@ if(isset($_POST['supprimer'])) {
         if($retour2==1) {
             print "<meta http-equiv=\"refresh\" content=\"0\">";
             $message="Le film a bien été supprimé !";
-            print $message;
+            ?><div class="alert alert-success"><strong><?php print $message; ?></strong></div><?php
         }
         else {
             $message2 = "Erreur de suppression de la diffusion !";
-            print $message2;
+            ?><div class="alert alert-danger"><strong><?php print $message2; ?></strong></div><?php
         }
     }
     if($retour==-3) {
-        print "Des clients ont acheté des tickets pour ce film !";
+        ?><div class="alert alert-danger"><strong><?php print "Des clients ont acheté des tickets pour ce film !"; ?></strong></div><?php
     }
     else {
         $message3 = "Erreur de suppression du film !";
-        print $message3;
+        ?><div class="alert alert-danger"><strong><?php print $message3; ?></strong></div><?php
     }
 }
 
 if(isset($_POST['modifier'])) {
     $flag = 0;
     if(empty($_POST['nom']) || empty($_POST['desc']) || empty($_POST['duree']) || empty($_POST['prix'])) {
-        print "Veuillez renseigner tous les champs</br>";
+        ?><div class="alert alert-danger"><strong><?php print "Veuillez renseigner tous les champs"; ?></strong></div><?php
         $flag = 1;
     }
     if($_FILES['image']['error'] > 0) {
         if($_FILES['image']['error'] == 1) {
-            print "Le fichier trop volumineux</br>";
+            ?><div class="alert alert-danger"><strong><?php print "Le fichier trop volumineux"; ?></strong></div><?php
         }
         else {
-            print "Erreur lors du transfert</br>";
+            ?><div class="alert alert-danger"><strong><?php print "Erreur lors du transfert"; ?></strong></div><?php
         }
         $flag = 1;
     }
@@ -58,7 +58,7 @@ if(isset($_POST['modifier'])) {
     $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
     $extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'], '.')  ,1)  );
     if (!in_array($extension_upload,$extensions_valides) ) {
-        print "Extension incorrecte</br>";
+        ?><div class="alert alert-danger"><strong><?php print "Extension incorrecte</br>"; ?></strong></div><?php
         $flag = 1;
     }
     
@@ -68,16 +68,16 @@ if(isset($_POST['modifier'])) {
         if($retour>0) {
             $nom = "./images/affiches/{$_POST['nom']}.{$extension_upload}";
             $resultat = move_uploaded_file($_FILES['image']['tmp_name'],$nom);
-            if ($resultat) {
-                print "Transfert réussi";
+            if (!$resultat) {
+                ?><div class="alert alert-warning"><strong><?php print "Erreur de transfert de l'image. Veuillez contacter un administrateur."; ?></strong></div><?php
             }
             print "<meta http-equiv=\"refresh\" content=\"0\">";
             $message="Le film a bien été mis à jour !";
-            print $message;
+            ?><div class="alert alert-danger"><strong><?php print $message; ?></strong></div><?php
         }
         else {
             $message2 = "Données incorrectes !";
-            print $message2;
+                    ?><div class="alert alert-danger"><strong><?php print $message2; ?></strong></div><?php
         }
     }
 }
@@ -127,7 +127,7 @@ if (isset($nbrG) && $nbrG > 0) {
                             <tr>
                                     <td><label class="gras" for="nom">Durée</label></td>
                                     <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td><input type="number" name="duree" id="duree" value="<?php print $liste_f[$i]['duree'];?>"  /></td>
+                                    <td><input type="number" name="duree" id="duree" min="1" value="<?php print $liste_f[$i]['duree'];?>"  /></td>
                             </tr>
                             <tr><td>&nbsp; </td></tr>
                             <tr>
@@ -139,7 +139,7 @@ if (isset($nbrG) && $nbrG > 0) {
                             <tr>
                                     <td><label class="gras" for="prix">Prix</label></td>
                                     <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td><input type="number" name="prix" id="prix" value="<?php print $liste_f[$i]['prix'];?>"  />&euro;</td>
+                                    <td><input type="number" name="prix" id="prix" min="1" value="<?php print $liste_f[$i]['prix'];?>"  />&euro;</td>
                             </tr>
                             <tr><td>&nbsp; </td></tr>
                             <tr>

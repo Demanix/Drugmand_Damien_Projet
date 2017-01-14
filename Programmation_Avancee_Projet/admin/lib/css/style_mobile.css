@@ -1,11 +1,26 @@
 /* style pour mobile */
-#main
+
+p
 {
-    background-color: orange;
-    color: blue;
+    font-size: 20px;
 }
 
-body
+#navigation
 {
-    background-color: greenyellow;
+    font-size: 22px;
+}
+
+#header
+{
+    background-image: url("../../images/banniere3.jpg");
+}
+
+#menu li a
+{
+    width: 200px;
+}
+
+.colaenlever
+{
+    display: none;
 }

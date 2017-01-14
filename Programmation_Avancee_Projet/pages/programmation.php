@@ -7,6 +7,7 @@ if($nbrT==0) {
 }
  else {
 ?>
+</br></br>
 <div class="pull-center">
     <div class="col-sm-12">
         <div id="gt_carousel" class="carousel slide" data-ride="carousel">
@@ -70,7 +71,7 @@ if($nbrT==0) {
     </div>
 </div>
 </br>&nbsp;</br>&nbsp;
-<h2>Cliquez sur l'heure du film de votre choix pour réserver votre ticket !</h2>
+<h2>Cliquez sur l'heure du film de votre choix pour réserver votre ticket pour demain !</h2>
 
 </br>&nbsp;</br>&nbsp;
 <div class="pull-center">
@@ -78,9 +79,9 @@ if($nbrT==0) {
         <table class="programmation">
             <tr class="programmation3">
                 <td>Nom</td><td>&nbsp;&nbsp;&nbsp;</td>
-                <td>Prix</td><td>&nbsp;&nbsp;&nbsp;</td>
-                <td>Durée</td><td>&nbsp;&nbsp;&nbsp;</td>
-                <td>Salle</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td class="colaenlever">Prix</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td class="colaenlever colaenlever2">Durée</td><td>&nbsp;&nbsp;&nbsp;</td>
+                <td class="colaenlever">Salle</td><td>&nbsp;&nbsp;&nbsp;</td>
                 <td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td>
                 <td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td>
             </tr>
@@ -89,9 +90,9 @@ if($nbrT==0) {
                 for($i=0;$i<$nbrT;$i++) { $j++;?>
             <tr <?php if($j % 2){print 'class="programmation2"';}else{print 'class="programmation1"';}?> title="<?php print $liste_t[$i]->description ?>">
                     <td><?php print $liste_t[$i]->nom ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><?php print $liste_t[$i]->prix  . " &euro;" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><?php print $liste_t[$i]->duree  . " minutes" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><?php print $liste_t[$i]->id_salle ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+                    <td class="colaenlever"><?php print $liste_t[$i]->prix  . " &euro;" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+                    <td class="colaenlever colaenlever2"><?php print $liste_t[$i]->duree  . " minutes" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
+                    <td class="colaenlever"><?php print $liste_t[$i]->id_salle ?></td><td>&nbsp;&nbsp;&nbsp;</td>
 
                     <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '11h'){?>
                     <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>

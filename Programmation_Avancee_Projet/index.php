@@ -10,6 +10,7 @@ session_start();
     <head>
         <link rel="stylesheet" type="text/css" href="./admin/lib/css/bootstrap-3.3.7/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="./admin/lib/css/style.css" type="text/css"/> 
+        <link rel="stylesheet" href="./admin/lib/css/mediaqueries.css" type="text/css"/>
         <script src="admin/lib/js/jquery-3.1.1.js"></script>
         <script src="admin/lib/js/jquery-validation-1.15.0/dist/jquery.validate.min.js" type="text/javascript"></script>
         <script src="admin/lib/js/messagesJqueryVal.js" type="text/javascript"></script>
@@ -23,7 +24,7 @@ session_start();
         <div id="conteneur">
             <div id="main">
                 <header id="header"> 
-                    <img class="banniere" src="admin/images/banniere.jpg" alt="banniere"/>
+                    <!--<img class="banniere" src="admin/images/banniere.jpg" alt="banniere"/>-->
                 </header>
                 
                 <?php
@@ -41,7 +42,7 @@ session_start();
                 }
                 ?>
                 
-                <div class="pull-right">
+                <div class="pull-right connexion">
                     <?php
                         if(isset($_SESSION['user'])){ 
                             $log = new UserDB($cnx);
@@ -52,12 +53,26 @@ session_start();
                             <a href="./index.php?page=disconnect_user.php">Déconnexion</a>
                     <?php
                         } else { ?>
-                            <form action="./index.php?page=accueil.php&amp;nav=Accueil" method='post' id="form_auth_">    
-                                Login : <input type="text" id="login_" name="login" />&nbsp;&nbsp;&nbsp;
-                                Mot de passe : <input type="password" id="password_" name="password" /> &nbsp;&nbsp;&nbsp;
-                                <input type="submit" name="submit_login" id="submit_login" value="Connexion" />&nbsp;&nbsp;&nbsp;
-                                <a href="./index.php?page=new_account.php&amp;nav=Nouveau Compte">Créer un compte</a>
-                            </form>
+                            <div class="col-lg-12 col-md-12">
+                                <form action="./index.php?page=accueil.php&amp;nav=Accueil" method='post' id="form_auth_">
+                                    <div class="col-lg-1">
+                                        Login:
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" id="login_" name="login" />&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div class="col-lg-2">
+                                        Mot de passe:
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="password" id="password_" name="password" /> &nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div class="col-lg-3">
+                                        &nbsp;&nbsp;&nbsp;<input type="submit" name="submit_login" id="submit_login" value="Connexion" /></br>
+                                        &nbsp;&nbsp;&nbsp;<a href="./index.php?page=new_account.php&amp;nav=Nouveau Compte">Créer un compte</a>
+                                    </div>
+                                </form>
+                            </div>
                     <?php
                         }
                     ?>
@@ -72,6 +87,7 @@ session_start();
                         ?> 
                 </nav>
 
+                </br></br>
                 <div id="navigation">
                     <?php
                     if (!isset($_SESSION['nav'])){
@@ -119,6 +135,6 @@ session_start();
             <?php
                 }
             ?>
-        </footer>	
+        </footer>
     </body>
 </html>

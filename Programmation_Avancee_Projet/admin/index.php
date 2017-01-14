@@ -8,7 +8,8 @@ session_start();
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="./lib/css/bootstrap-3.3.7/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="./lib/css/style.css" type="text/css"/> 
+        <link rel="stylesheet" href="./lib/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="./lib/css/mediaqueries.css" type="text/css"/>
         <script src="./lib/js/jquery-3.1.1.js"></script>
         <script src="./lib/js/jquery-validation-1.15.0/dist/jquery.validate.min.js" type="text/javascript"></script>
         <script src="./lib/js/messagesJqueryVal.js" type="text/javascript"></script>

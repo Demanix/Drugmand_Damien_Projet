@@ -4,7 +4,7 @@ if(isset($_GET['envoyer'])) {
     extract($_GET,EXTR_OVERWRITE);
     
     if(empty($nom) || empty($prenom) || empty($email) || empty($login) || empty($password)) {
-        print "Veuillez renseigner tous les champs.";
+        ?><div class="alert alert-danger"><strong><?php print "Veuillez renseigner tous les champs."; ?></strong></div><?php
         $flag = 1;
     }
     if($flag == 0) {
@@ -12,11 +12,11 @@ if(isset($_GET['envoyer'])) {
         $retour = $log->insert($_GET['nom'],$_GET['prenom'],$_GET['email'],$_GET['login'],$_GET['password']);
         if($retour==1) {
             $message="Le compte à bien été créé !";
-            print $message;
+            ?><div class="alert alert-success"><strong><?php print $message; ?></strong></div><?php
         }
         else {
             $message = "Données incorrectes !";
-            print $message;
+            ?><div class="alert alert-danger"><strong><?php print $message; ?></strong></div><?php
         }
     }
 }

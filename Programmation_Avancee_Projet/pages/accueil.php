@@ -1,7 +1,7 @@
-<div class="col-sm-5">
+<div class="col-lg-5 col-md-5 col-xs-12">
     <img src="./admin/images/accueil.jpg" alt="accueil" id="image_accueil"/>
 </div>
-<div class="col-sm-7">
+<div class="col-lg-7 col-md-7 col-xs-12">
     <h2>Bienvenue !</h2>
     <p>		
         Le complexe cinématographique Demanix Mons vous accueille pour passer un agréable moment de détente.</br></br>
@@ -10,7 +10,7 @@
         à thème comme la Nuit Halloween ou la Sci-Fi's Night.</br></br>
     </p>
 </div>
-<div class="col-sm-12">
+<div class="col-lg-12 col-md-12 col-xs-12">
     <p>
         Nos 15 salles étant équipées du meilleur matériel audio/visuel, nous vous offrons la possibilité de profiter de films en très haute qualité.</br></br>
 
