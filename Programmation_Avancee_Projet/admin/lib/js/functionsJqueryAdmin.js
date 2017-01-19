@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $("#nom").blur(function () {
         nom = $("#nom").val();
         if ($.trim(nom) !== '') {
@@ -17,5 +16,4 @@ $(document).ready(function () {
             });
         }
     });
-
 });

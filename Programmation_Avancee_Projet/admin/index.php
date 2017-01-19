@@ -7,6 +7,7 @@ session_start();
 
 <html>
     <head>
+        <title>Cinéma Demanix Admin</title>
         <link rel="stylesheet" type="text/css" href="./lib/css/bootstrap-3.3.7/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="./lib/css/style.css" type="text/css"/>
         <link rel="stylesheet" href="./lib/css/mediaqueries.css" type="text/css"/>
@@ -88,7 +89,7 @@ session_start();
                    <a href="./index.php?page=disconnect" class="pull-center">Zone administrateur : Déconnexion</a>
             <?php
                 } else { ?>
-                   <a href="javascript:history.back(1)" class="pull-center">Zone public</a>
+                   <a href="javascript:history.back(2)" class="pull-center">Zone public</a>
             <?php
                 }
             ?>

@@ -7,5 +7,4 @@ $(document).ready(function(){
        var url = 'index.php?' + param + '=' + val + '&submit_type=1';       
        location.href = url;
    });
-    
 });

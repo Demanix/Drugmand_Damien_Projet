@@ -8,6 +8,7 @@ session_start();
 
 <html>
     <head>
+        <title>Cinéma Demanix</title>
         <link rel="stylesheet" type="text/css" href="./admin/lib/css/bootstrap-3.3.7/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="./admin/lib/css/style.css" type="text/css"/> 
         <link rel="stylesheet" href="./admin/lib/css/mediaqueries.css" type="text/css"/>
