@@ -48,7 +48,7 @@ if(isset($_SESSION['user']) && isset($_GET['id_projection']))
             for ($i = 0; $i < $nbrG; $i++) {
                 ?>
                     <div class="col-sm-12">
-                        <form action="index.php?page=inscrire.php" method='post'>
+                        <form action="index.php?page=inscrire.php" method='post' id="achat">
                             <table id="ajout">
                                 <tr>
                                         <td><label class="gras" for="nom">Nom du film</label></td>

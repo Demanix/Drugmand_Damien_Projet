@@ -81,7 +81,6 @@ if($nbrT==0) {
                 <td>Nom</td><td>&nbsp;&nbsp;&nbsp;</td>
                 <td class="colaenlever">Prix</td><td>&nbsp;&nbsp;&nbsp;</td>
                 <td class="colaenlever colaenlever2">Durée</td><td>&nbsp;&nbsp;&nbsp;</td>
-                <td class="colaenlever">Salle</td><td>&nbsp;&nbsp;&nbsp;</td>
                 <td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td>
                 <td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td>
             </tr>
@@ -92,7 +91,6 @@ if($nbrT==0) {
                     <td><?php print $liste_t[$i]->nom ?></td><td>&nbsp;&nbsp;&nbsp;</td>
                     <td class="colaenlever"><?php print $liste_t[$i]->prix  . " &euro;" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
                     <td class="colaenlever colaenlever2"><?php print $liste_t[$i]->duree  . " minutes" ?></td><td>&nbsp;&nbsp;&nbsp;</td>
-                    <td class="colaenlever"><?php print $liste_t[$i]->id_salle ?></td><td>&nbsp;&nbsp;&nbsp;</td>
 
                     <?php if($i<$nbrT && $liste_t[$i]->heure_diffusion == '11h'){?>
                     <td><a href="index.php?page=inscrire.php&amp;id_projection=<?php print $liste_t[$i]->id_projection;?>" title= "<?php print $liste_t[$i]->nb_places_restantes  . " places restantes"; ?>" ><?php print $liste_t[$i]->heure_diffusion ?></a></td>

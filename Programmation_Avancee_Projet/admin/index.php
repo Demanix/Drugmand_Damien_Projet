@@ -23,7 +23,7 @@ session_start();
         <div id="conteneur">
             <div id="main">
                 <header id="header"> 
-                    <img class="banniere" src="images/banniere.jpg" alt="banniere"/>
+                    <!--<img class="banniere" src="images/banniere.jpg" alt="banniere"/>-->
                 </header>
 
                 <nav id="menu">

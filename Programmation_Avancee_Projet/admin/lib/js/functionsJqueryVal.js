@@ -48,4 +48,13 @@ $(document).ready(function(){
         }
     });
     
+    $("#achat").validate({
+        rules: {
+            nb: "required",
+            submitHandler: function(form) {
+                form.submit();
+            }
+        }
+    });
+    
 });
