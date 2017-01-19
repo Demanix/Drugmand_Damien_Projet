@@ -5,19 +5,26 @@ if(isset($_SESSION['user'])){
 }
 
 if(isset($_POST['modifier'])) {
-    $retour = $log->update($_POST['id_client'],$_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['login'],$_POST['password']);
-    if($retour==1) {
-        $message="Le compte à bien été modifié !";
-        print $message;
+    $flag = 0;
+    if(empty($nom) || empty($prenom) || empty($email) || empty($login) || empty($password)) {
+        ?><div class="alert alert-danger"><strong><?php print "Veuillez renseigner tous les champs."; ?></strong></div><?php
+        $flag = 1;
     }
-    else {
-        $message = "Données incorrectes !";
-        print $message;
+    if($flag == 0) {
+        $retour = $log->update($_POST['id_client'],$_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['login'],$_POST['password']);
+        if($retour==1) {
+            $message="Le compte à bien été modifié !";
+            ?><div class="alert alert-success"><strong><?php print $message; ?></strong></div><?php
+        }
+        else {
+            $message = "Données incorrectes !";
+            ?><div class="alert alert-danger"><strong><?php print $message; ?></strong></div><?php
+        }
     }
 }
 ?>
 
-<form action="index.php" method='post'>
+<form action="index.php" method='post' id="form_modif_client">
     <table id="inscrire">
         <tr>
                 <td><label class="gras" for="nom">Nom</label></td>
@@ -26,25 +33,25 @@ if(isset($_POST['modifier'])) {
         </tr>
         <tr><td>&nbsp; </td></tr>
         <tr>
-                <td><label class="gras" for="nom">Prénom</label></td>
+                <td><label class="gras" for="prenom">Prénom</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><input type="text" name="prenom" id="prenom" placeholder="Prénom" value="<?php print $liste->prenom_client; ?>" /></td>
         </tr>
         <tr><td>&nbsp; </td></tr>
         <tr>
-                <td><label class="gras" for="nom">E-Mail</label></td>
+                <td><label class="gras" for="email">E-Mail</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><input type="email" name="email" id="email" placeholder="E-Mail" value="<?php print $liste->email_client; ?>" /></td>
         </tr>
         <tr><td>&nbsp; </td></tr>
         <tr>
-                <td><label class="gras" for="nom">Login</label></td>
+                <td><label class="gras" for="login">Login</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><input type="text" name="login" id="login" placeholder="Login" value="<?php print $liste->login; ?>" /></td>
         </tr>
         <tr><td>&nbsp; </td></tr>
         <tr>
-                <td><label class="gras" for="nom">Mot de passe</label></td>
+                <td><label class="gras" for="password">Mot de passe</label></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><input type="password" name="password" id="password" placeholder="Mot de passe"  /></td>
         </tr>

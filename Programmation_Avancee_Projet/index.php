@@ -36,8 +36,8 @@ session_start();
                         $_SESSION['user']=$retour;
                     }
                     else {
-                        $message = "Données incorrectes";
-                        print $message;
+                        $message = "Login ou mot de passe incorrect !";
+                        ?><div class="alert alert-danger"><strong><?php print $message; ?></strong></div><?php
                     }
                 }
                 ?>

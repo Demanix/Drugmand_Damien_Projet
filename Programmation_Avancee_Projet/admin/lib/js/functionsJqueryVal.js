@@ -57,4 +57,26 @@ $(document).ready(function(){
         }
     });
     
+    $("#form_auth").validate({
+        rules: {
+            login: "required",
+            password: "required",
+            submitHandler: function(form) {
+                form.submit();
+            }
+        }
+    });
+    
+    $("#form_modif_client").validate({
+        rules: {
+            nom: "required",
+            prenom: "required",
+            email: "required",
+            login: "required",
+            password: "required",
+            submitHandler: function(form) {
+                form.submit();
+            }
+        }
+    });
 });

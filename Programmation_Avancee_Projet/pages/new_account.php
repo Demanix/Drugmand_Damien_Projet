@@ -15,7 +15,7 @@ if(isset($_GET['envoyer'])) {
             ?><div class="alert alert-success"><strong><?php print $message; ?></strong></div><?php
         }
         else {
-            $message = "Données incorrectes !";
+            $message = "Ce compte existe déjà !";
             ?><div class="alert alert-danger"><strong><?php print $message; ?></strong></div><?php
         }
     }
